@@ -13,6 +13,10 @@ public class Player extends Polygon implements KeyListener{
 	
 	private static boolean left;
 	private static boolean right;
+	private static boolean up;
+	private static boolean down;
+	private static boolean sprint;
+
 	
 	public static int speed = 3;
 	
@@ -37,6 +41,7 @@ public class Player extends Polygon implements KeyListener{
 	
 	public void move()
 	{
+		
 		if(left && inPosition.x > 20) //left movement
 		{
 			inPosition.x -= speed;
@@ -49,10 +54,41 @@ public class Player extends Polygon implements KeyListener{
 			super.rotation = 190;
 		}
 		
+		if(up && inPosition.y > 40) //down movement
+		{
+			inPosition.y -= speed;
+			super.rotation = 170;
+		}
+		
+		if(down && inPosition.y < 560) //up movement
+		{
+			inPosition.y += speed;
+			super.rotation = 190;
+		}
+		
+		
 		if(left == right)
 		{
 			super.rotation = 180;
 		}
+		
+		if(down == up)
+		{
+			super.rotation = 180;
+		}
+		
+		if( inPosition.y < 560 && inPosition.y > 40 && !up) {
+			inPosition.y += speed-1;
+			super.rotation = 170;
+		}
+		if(sprint == true) {
+			speed = 5;
+		}
+		if(sprint == false) {
+			speed = 3;
+		}
+		
+		
 	}
 
 	public void keyPressed(KeyEvent e) 
@@ -62,6 +98,15 @@ public class Player extends Polygon implements KeyListener{
 		
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 			right = true;
+		
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
+			up = true;
+		
+		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
+			down = true;
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)
+			sprint = true;
+			
 	}
 
 	public void keyReleased(KeyEvent e) 
@@ -71,10 +116,30 @@ public class Player extends Polygon implements KeyListener{
 		
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 			right = false;
+		
+		if(e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
+			up = false;
+		
+		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
+			down = false;
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)
+			sprint = false;
+			
+	
+		
 	}
 	
 	public void keyTyped(KeyEvent e) {
 		//Needed but not implemented
 	}
+	
+	public void constantShift() {
+		if( inPosition.y < 560 && inPosition.y > 40) {
+			inPosition.y -= speed;
+			super.rotation = 170;
+		}
+	}
+	
+	
 	
 }

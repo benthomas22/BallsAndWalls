@@ -8,6 +8,8 @@ NOTE: You don't need to understand the details here, no fiddling neccessary.*/
 import java.awt.*;
 import java.awt.event.*;
 
+import javax.swing.JOptionPane;
+
 abstract class Game extends Canvas {
   protected boolean on = true;
   protected int width, height;
@@ -45,5 +47,10 @@ abstract class Game extends Canvas {
   // 'sleep' is a simple helper function used in 'update'.
   private void sleep(int time) {
     try {Thread.sleep(time);} catch(Exception exc){};
+  }
+  
+  public static void GameOver() {
+      JOptionPane.showMessageDialog(null, "You lasted:" + YourGameName.counter+" ticks "+ "\n You lost on level : " , "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
+	  System.exit(0);
   }
 }

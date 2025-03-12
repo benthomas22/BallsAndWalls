@@ -12,6 +12,7 @@ import java.awt.event.*;
 
 class YourGameName extends Game {
 	static int counter = 0;
+	static int level = 0;
 	static Player player;
 
 	static {
@@ -35,13 +36,26 @@ class YourGameName extends Game {
     	counter++;
     	brush.setColor(Color.white);
     	brush.drawString("Counter is " + counter,10,10);
+    	brush.drawString("Level is " + level,10,25);
     	if(counter % Wall.wallFreq == 0)
     	{
     		Wall.spawnWall();
+
+    	}
+    	if(counter % Balls.ballFreq == 0)
+    	{
+    		//System.out.println("balls");
+    		Balls.spawnBall();
+    		
+    		
+
     	}
     	
     	Wall.moveWalls();
+		Balls.moveBalls();
     	Wall.paint(brush);
+    	Balls.paint(brush);
+
     	
     	player.move();
     	player.paint(brush);
