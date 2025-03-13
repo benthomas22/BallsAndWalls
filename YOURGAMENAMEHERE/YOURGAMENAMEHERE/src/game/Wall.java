@@ -42,6 +42,24 @@ public class Wall extends Polygon{
 				YourGameName.GameOver();
 				break;
 			}
+			if(speed == 0) {
+				if(YourGameName.counter %7 == 0) {
+					speed = -1;
+					
+				}
+				else {
+					speed = 1;
+				}		
+			}
+			if(YourGameName.level > 20 && YourGameName.counter%2 == 0 && YourGameName.level%2 == 0 ) {
+				
+				if(YourGameName.level< 25) {
+					wall.rotation +=YourGameName.level;
+				}
+				wall.rotation +=1 *( YourGameName.level-10);
+
+			
+			}
 		}
 	}
 	

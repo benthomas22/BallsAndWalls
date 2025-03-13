@@ -100,7 +100,10 @@ public class Player extends Polygon implements KeyListener{
 		}
 		
 		if(sprint == true) {
-			speed = 4;
+			speed = 5;
+		}
+		if(sprint == false) {
+			speed = 3;
 		}
 	}
 
@@ -117,9 +120,9 @@ public class Player extends Polygon implements KeyListener{
 		
 		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
 			down = true;
-		//if(e.getKeyCode() == KeyEvent.VK_SHIFT)
-		//
-		sprint = false;
+		
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)//
+			sprint = true;
 	}
 
 	public void keyReleased(KeyEvent e) 
@@ -135,8 +138,9 @@ public class Player extends Polygon implements KeyListener{
 		
 		if(e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
 			down = false;
-		//if(e.getKeyCode() == KeyEvent.VK_SHIFT)
-		//	sprint = true;
+		
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT)
+			sprint = false;
 	}
 	
 	public void keyTyped(KeyEvent e) {

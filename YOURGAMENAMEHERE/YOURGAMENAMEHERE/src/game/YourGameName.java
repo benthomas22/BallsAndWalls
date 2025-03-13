@@ -18,6 +18,7 @@ class YourGameName extends Game {
 	static int level = 0;
 	static int highestLevel = 0;
 	static Player player;
+	static boolean gameStarted = false;
 
 	static {
 		 player = new Player();
@@ -27,45 +28,70 @@ class YourGameName extends Game {
     super("YourGameName!",800,600);
     this.setFocusable(true);
 	this.requestFocus();
-	this.addKeyListener(player);
+	this.addKeyListener(new KeyAdapter() { //anonymous class for start screen
+		public void keyPressed(KeyEvent e)
+		{
+			if(!gameStarted)
+			{
+				gameStarted = true;
+				removeKeyListener(this);
+				addKeyListener(player);
+				RestartGame();
+				repaint();
+			}
+		}
+	});
   }
   
 	public void paint(Graphics brush) {
-    	brush.setColor(Color.getHSBColor(250f/360f, 0.4f, 0.23f));
-    	brush.fillRect(0,0,width,height);
     	
-    	// sample code for printing message for debugging
-    	// counter is incremented and this message printed
-    	// each time the canvas is repainted
-    	counter++;
-    	if(counter > highScore)
-    		highScore = counter;
-    	if(level > highestLevel)
-    		highestLevel = level;
-    	
-    	brush.setColor(Color.white);
-    	brush.drawString("Score is " + counter,10,10);
-    	brush.drawString("Highscore is " + highScore,10,25);
-    	brush.drawString("Level is " + level,10,40);
-    	brush.drawString("Highest Level is " + highestLevel,10,55);
-    	if(counter % Wall.wallFreq == 0)
-    	{
-    		Wall.spawnWall();
-    	}
-    	if(counter % Balls.ballFreq == 0)
-    	{
-    		//System.out.println("balls");
-    		Balls.spawnBall();
+		if(!gameStarted)
+		{
+			brush.setColor(Color.getHSBColor(250f/360f, 0.4f, 0.23f));
+	    	brush.fillRect(0,0,width,height);
+	    	brush.setColor(Color.white);
+	    	brush.drawString("BALLS AND WALLS", 342, 400);
+	    	brush.drawString("PRESS ANY KEY TO START", 320, 450);
+		}
+		else
+		{
+			brush.setColor(Color.getHSBColor(250f/360f, 0.4f, 0.23f));
+	    	brush.fillRect(0,0,width,height);
+	    	
+	    	// sample code for printing message for debugging
+	    	// counter is incremented and this message printed
+	    	// each time the canvas is repainted
+	    	counter++;
+	    	if(counter > highScore)
+	    		highScore = counter;
+	    	if(level > highestLevel)
+	    		highestLevel = level;
+	    	
+	    	brush.setColor(Color.white);
+	    	brush.drawString("Score is " + counter,10,10);
+	    	brush.drawString("Highscore is " + highScore,10,25);
+	    	brush.drawString("Level is " + level,10,40);
+	    	brush.drawString("Highest Level is " + highestLevel,10,55);
+	    	if(counter % Wall.wallFreq == 0)
+	    	{
+	    		Wall.spawnWall();
+	    	}
+	    	if(counter % Balls.ballFreq == 0)
+	    	{
+	    		//System.out.println("balls");
+	    		Balls.spawnBall();
 
-    	}
-    	
-    	Wall.moveWalls();
-    	Balls.moveBalls();
-    	Wall.paint(brush);
-    	Balls.paint(brush);
-    	
-    	player.move();
-    	player.paint(brush);
+	    	}
+	    	
+	    	Wall.moveWalls();
+	    	Balls.moveBalls();
+	    	Wall.paint(brush);
+	    	Balls.paint(brush);
+	    	
+	    	player.move();
+	    	player.paint(brush);
+	    	
+		}
     	
   }
   
